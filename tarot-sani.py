@@ -81,13 +81,13 @@ def sanitize_and_save(input_file, output_file):
         df = load_data(input_file)
         sanitized_df = sanitize_data(df, PATTERNS)
         save_data(sanitized_df, output_file)
-        messagebox.showinfo("Success", "Data sanitization complete!")
+        messagebox.showinfo("Success", "Your data has been sanitized!")
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred: {e}")
 
 def browse_input_file():
     file_path = filedialog.askopenfilename(
-        title="Select Input File",
+        title="Choose Your File of Secrets",
         filetypes=[("CSV files", "*.csv"), ("Excel files", "*.xlsx"), ("JSON files", "*.json")]
     )
     if file_path:
@@ -96,7 +96,7 @@ def browse_input_file():
 
 def browse_output_file():
     file_path = filedialog.asksaveasfilename(
-        title="Select Output File",
+        title="Where Shall the Magic Be Stored?",
         filetypes=[("CSV files", "*.csv"), ("Excel files", "*.xlsx"), ("JSON files", "*.json")],
         defaultextension=".csv"
     )
@@ -110,30 +110,37 @@ def run_sanitizer():
     if input_file and output_file:
         sanitize_and_save(input_file, output_file)
     else:
-        messagebox.showwarning("Warning", "Please select both input and output files.")
+        messagebox.showwarning("Warning", "Please choose both input and output files.")
 
 # Create the GUI window
 root = tk.Tk()
 root.title("Tarot Data Sanitizer")
+root.configure(bg="#2b2b52")
 
-# Input file selection
-input_label = tk.Label(root, text="Input File:")
+# Style configurations
+style_config = {
+    "font": ("Verdana", 12),
+    "bg": "#2b2b52",
+    "fg": "#f5f6fa",
+    "highlightbackground": "#706fd3",
+    "highlightcolor": "#706fd3"
+}
+
+input_label = tk.Label(root, text="Choose the File of Secrets:", **style_config)
 input_label.grid(row=0, column=0, padx=10, pady=10)
-input_entry = tk.Entry(root, width=50)
+input_entry = tk.Entry(root, width=50, **style_config)
 input_entry.grid(row=0, column=1, padx=10, pady=10)
-input_button = tk.Button(root, text="Browse", command=browse_input_file)
+input_button = tk.Button(root, text="Browse", command=browse_input_file, bg="#706fd3", fg="#ffffff", font=("Verdana", 10))
 input_button.grid(row=0, column=2, padx=10, pady=10)
 
-# Output file selection
-output_label = tk.Label(root, text="Output File:")
+output_label = tk.Label(root, text="Choose Where to Store the Magic:", **style_config)
 output_label.grid(row=1, column=0, padx=10, pady=10)
-output_entry = tk.Entry(root, width=50)
+output_entry = tk.Entry(root, width=50, **style_config)
 output_entry.grid(row=1, column=1, padx=10, pady=10)
-output_button = tk.Button(root, text="Browse", command=browse_output_file)
+output_button = tk.Button(root, text="Browse", command=browse_output_file, bg="#706fd3", fg="#ffffff", font=("Verdana", 10))
 output_button.grid(row=1, column=2, padx=10, pady=10)
 
-# Run button
-run_button = tk.Button(root, text="Run Sanitizer", command=run_sanitizer)
+run_button = tk.Button(root, text="Make Some Magic!", command=run_sanitizer, bg="#34ace0", fg="#ffffff", font=("Verdana", 12, "bold"))
 run_button.grid(row=2, column=1, padx=10, pady=20)
 
 # Start the GUI event loop
